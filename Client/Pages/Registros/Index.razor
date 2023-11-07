@@ -2,7 +2,7 @@
 @page "/{EmpacadoId:int}"
 @inject EmpacadosBLL EmpacadosBLL
 @inject ProductosBLL ProductosBLL
-@inject NotificationService notify
+@inject NotificationService notificationService;
 
 <EditForm Model="empacado" OnValidSubmit="Guardar">
 
@@ -181,6 +181,15 @@
 
             notify.ShowNotification("Guardado correctamente", NotificationSeverity.Success);
             Nuevo();
+
+           var mensaje = new NotificationMessage
+                {
+                    Severity = NotificationSeverity.Success,
+                    Summary = "hola",
+                    Detail = "hola",
+                    Duration = 3000
+                };
+            notificationService.Notify(mensaje);
         }
 
     }
