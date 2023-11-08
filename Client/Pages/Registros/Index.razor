@@ -2,7 +2,8 @@
 @page "/{EmpacadoId:int}"
 @inject EmpacadosBLL EmpacadosBLL
 @inject ProductosBLL ProductosBLL
-@inject NotificationService notificationService
+@inject NotificationService notify
+@inject NotificationService notificationService;
 
 <EditForm Model="empacado" OnValidSubmit="Guardar">
 
@@ -177,13 +178,10 @@
 
         if (EmpacadosBLL.Guardar(empacado))
         {
-           var mensaje = new NotificationMessage
-                {
-                    Severity = NotificationSeverity.Success,
-                    Summary = "Guardado correctamente",
-                    Duration = 3000
-                };
-            notificationService.Notify(mensaje);
+
+
+            notify.ShowNotification("Guardado correctamente", NotificationSeverity.Success);
+            Nuevo();
         }
 
     }
@@ -193,24 +191,13 @@
         var encontrado = EmpacadosBLL.Buscar(empacado.EmpacadoId);
         if (encontrado != null)
         {
-            var mensaje = new NotificationMessage
-                {
-                    Severity = NotificationSeverity.Success,
-                    Summary = "Encontrado Correctamente",
-                    Duration = 3000
-                };
-            notificationService.Notify(mensaje);
+            empacado = encontrado;
+            notify.ShowNotification("encontrado Correctamente", NotificationSeverity.Success);
 
         }
         else
         {
-            var mensaje = new NotificationMessage
-                {
-                    Severity = NotificationSeverity.Error,
-                    Summary = "No se pudo encontrar",
-                    Duration = 3000
-                };
-            notificationService.Notify(mensaje);
+            notify.ShowNotification("No se pudo Encontrar", NotificationSeverity.Error);
         }
 
     }
@@ -221,41 +208,19 @@
         {
             if (detalleEmpacado.Cantidad > productoEncontrado.Existencia)
             {
-                {
-                    var mensaje = new NotificationMessage
-                        {
-                            Severity = NotificationSeverity.Error,
-                            Summary = ("ha superado la existencia del producto",
-                            Duration = 3000
-                        };
-                    notificationService.Notify(mensaje);
-                  
-                }
-
-                
-            
+                notify.ShowNotification($"ha superado la existencia del producto({productoEncontrado.Existencia})", NotificationSeverity.Error);
+                return;
+            }
         }
         if (detalleEmpacado.Cantidad <= 0)
         {
-                var mensaje = new NotificationMessage
-                    {
-                        Severity = NotificationSeverity.Error,
-                        Summary = "Debe Introducir una cantidad de producto mayor a 0",
-                        Duration = 3000
-                    };
-                notificationService.Notify(mensaje);
-
-
+            notify.ShowNotification("debe introducir una cantidad de producto mayor a 0 ", NotificationSeverity.Error);
+            return;
         }
         if (detalleEmpacado.ProductoId <= 0)
         {
-                var mensaje = new NotificationMessage
-                    {
-                        Severity = NotificationSeverity.Error,
-                        Summary = "Debe solucionar un producto",
-                        Duration = 3000
-                    };
-                notificationService.Notify(mensaje);
+            notify.ShowNotification("Debe solucionar un producto", NotificationSeverity.Error);
+            return;
         }
 
         if (detalleEmpacado.Cantidad > 0 && detalleEmpacado.ProductoId > 0)
@@ -288,14 +253,8 @@
             if (EmpacadosBLL.Eliminar(empacado))
             {
 
-                    var mensaje = new NotificationMessage
-                        {
-                            Severity = NotificationSeverity.Error,
-                            Summary = "Eliminado Correctamente",
-                            Duration = 3000
-                        };
-                    notificationService.Notify(mensaje);
-
+                notify.ShowNotification("Eliminado Correctamente", NotificationSeverity.Success);
+                Nuevo();
             }
         }
 
@@ -307,30 +266,13 @@
         if (empacado.CantidadUtilizada < 2) { validacion = false; }
         if (empacado.detalleEmpacados.Count < 2)
         {
-                var mensaje = new NotificationMessage
-                    {
-                        Severity = NotificationSeverity.Warning,
-                        Summary = "debe seleccionar por lo menos dos productos en el detalle",
-                        Duration = 3000
-                    };
-                notificationService.Notify(mensaje);
-                validacion = false;
-
-
-
-
+            notify.ShowNotification("debe seleccionar por lo menos dos productos en el detalle", NotificationSeverity.Warning);
+            validacion = false;
         }
         if (empacado.Producido <= 0)
         {
-
-                var mensaje = new NotificationMessage
-                    {
-                        Severity = NotificationSeverity.Warning,
-                        Summary = "debe seleccionar un producido"
-                        Duration = 3000
-                    };
-                notificationService.Notify(mensaje);
-                validacion = false;
+            notify.ShowNotification("debe seleccionar un producido", NotificationSeverity.Warning);
+            validacion = false;
         }
 
 
