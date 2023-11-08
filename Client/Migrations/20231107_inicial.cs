@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-#nullable disable
 
-#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
+
 namespace Miguel_API1_P2.Client.Migrations
 {
  
@@ -77,7 +77,8 @@ namespace Miguel_API1_P2.Client.Migrations
                     { 2, "Normal", 50.0, "Pistachos", 100, 120.0 },
                     { 3, "Normal", 25.0, "Pasas", 100, 50.0 },
                     { 4, "Normal", 25.0, "Ciruelas", 100, 50.0 },
-                    { 5, "Empacado", 100.0, "Mixto", 0, 150.0 }
+                    { 5, "Empacado", 100.0, "Mixto", 0, 150.0 },
+                    { 6, "Normal", 25.0, "Arandanos", 100, 50.0 }
                 });
 
             migrationBuilder.CreateIndex(

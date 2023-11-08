@@ -56,7 +56,16 @@ public class Contexto :DbContext
                     Precio= 150,
                     Categoria="Empacado",
                     Existencia= 0
-                }
+                },
+                 new Productos
+                 {
+                     ProductoId = 6,
+                     Descripcion = "Arandanos",
+                     Costo = 25,
+                     Precio = 50,
+                     Categoria = "Normal",
+                     Existencia = 100
+                 }
         );
      }
 }

@@ -137,7 +137,18 @@ partial class ContextoModelSnapshot : ModelSnapshot
                     Descripcion = "Mixto",
                     Existencia = 0,
                     Precio = 150.0
-                });
+                },
+                 new
+                 {
+                     ProductoId = 6,
+                     Categoria = "Normal",
+                     Costo = 25.0,
+                     Descripcion = "Arandanos",
+                     Existencia = 100,
+                     Precio = 50.0
+
+                 }
+                );
         });
 
         modelBuilder.Entity("DetalleEmpacados", b =>

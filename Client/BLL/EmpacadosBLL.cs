@@ -30,7 +30,7 @@ public class EmpacadosBLL
         }
 
          _Contexto.Empacados.Add(empacado);
-        bool save = _Contexto.SaveChanges() >0;
+        bool save = _Contexto.SaveChanges() > 1;
         _Contexto.Entry(empacado).State = EntityState.Detached;
          return  save;
     }
